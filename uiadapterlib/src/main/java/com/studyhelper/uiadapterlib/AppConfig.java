@@ -65,10 +65,10 @@ public class AppConfig {
       }
 
       private void initScreenSize(Context application){
-            int[] screenSize = getScreenSize(application);
+            int[] screenSize = CommonUtil.getScreenSize(application);
             mScreenWidth = screenSize[0];
-            mScreenHeight = screenSize[1] - getNavigationBarHeight(application);
-            Log.e("","mScreenWidth: " + mScreenWidth + " mScreenHeight: " + mScreenHeight);
+            mScreenHeight = screenSize[1];// - getNavigationBarHeight(application);
+            Log.e("uiadapter","mScreenWidth: " + mScreenWidth + " mScreenHeight: " + mScreenHeight);
       }
 
       public DisplayInfo getInitDisplayInfo() {
@@ -84,37 +84,5 @@ public class AppConfig {
       }
 
 
-      /**
-       * 获取当前的屏幕尺寸
-       * @param context {@link Context}
-       * @return 屏幕尺寸
-       */
-      private int[] getScreenSize(Context context) {
-            int[] size = new int[2];
 
-            WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            if (w != null) {
-                  Display d = w.getDefaultDisplay();
-                  DisplayMetrics metrics = new DisplayMetrics();
-                  d.getMetrics(metrics);
-
-                  size[0] = metrics.widthPixels;
-                  size[1] = metrics.heightPixels;
-            }
-            return size;
-      }
-
-      /**
-       * 非全面屏下 虚拟键高度(无论是否隐藏)
-       * @param context
-       * @return
-       */
-      private int getNavigationBarHeight(Context context){
-            int result = 0;
-            int resourceId = context.getResources().getIdentifier("navigation_bar_height","dimen", "android");
-            if (resourceId > 0) {
-                  result = context.getResources().getDimensionPixelSize(resourceId);
-            }
-            return result;
-      }
 }

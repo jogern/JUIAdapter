@@ -21,6 +21,8 @@ public class LauncherActivity extends PermissionActivity implements AutoSizeAdap
                 .setDesignHeight(Constant.DESIGN_HEIGHT).bild();
     }
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
