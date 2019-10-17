@@ -5,5 +5,5 @@
 * 引用库
 
 ~~~
-implementation 'com.github.jogern:JUIAdapter:v1.0.0'
+implementation 'com.github.jogern:JUIAdapter:v1.0.2'
 ~~~
