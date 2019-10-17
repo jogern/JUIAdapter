@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="200dp"
+        android:layout_width="500dp"
         android:layout_height="300dp"
         android:background="@android:color/holo_red_dark" />
 
@@ -17,7 +17,7 @@
         android:text="Hello World!" />
 
     <TextView
-        android:layout_width="800dp"
+        android:layout_width="1280dp"
         android:text="1111111111111111111111111111111111111111111111111111111111111111111111112"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray" />

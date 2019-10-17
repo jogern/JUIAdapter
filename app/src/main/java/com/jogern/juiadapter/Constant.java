@@ -9,11 +9,11 @@ public final class Constant {
     /**
      * 适配设计的宽度
      */
-    public static final int DESIGN_WIDTH = 1200;
+    public static final int DESIGN_WIDTH = 800;
     /**
      * 适配设计的高度
      */
-    public static final int DESIGN_HEIGHT = 1920;
+    public static final int DESIGN_HEIGHT = 1280;
 
     private Constant() {
     }

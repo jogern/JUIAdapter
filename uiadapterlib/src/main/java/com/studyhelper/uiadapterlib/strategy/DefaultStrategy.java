@@ -44,33 +44,39 @@ public class DefaultStrategy implements AutoStrategy {
 
     private void createDisplay(Activity curAty, DisplayInfo displayInfo, DesignInfo designInfo) {
 
-//        Configuration configuration = curAty.getResources().getConfiguration();
-//        boolean isPortrait = configuration.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-//        int width = isPortrait ? designInfo.getDesignWidth() : designInfo.getDesignHeight();
-//        int height = isPortrait ? designInfo.getDesignHeight() : designInfo.getDesignWidth();
+        Configuration configuration = curAty.getResources().getConfiguration();
+        boolean isPortrait = configuration.orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        int width = isPortrait ? designInfo.getDesignWidth() : designInfo.getDesignHeight();
+        int height = isPortrait ? designInfo.getDesignHeight() : designInfo.getDesignWidth();
 
-        int width = designInfo.getDesignWidth() ;
-        int height = designInfo.getDesignHeight() ;
+//        int width = designInfo.getDesignWidth();
+//        int height = designInfo.getDesignHeight();
 
-//        if (CommonUtil.isNavigationBarShown(curAty)) {
-        height = height - CommonUtil.getNavigationBarHeight(curAty);
-//        }
+        boolean shown =CommonUtil.isNavigationBarShow(curAty);// CommonUtil.isNavigationBarShown(curAty);
+        Log.e("uiadapter", "NavigationBarShown: " + shown);
+        if (shown) {
+            height = height - CommonUtil.getNavigationBarHeight(curAty);
+        }
+
+        AppConfig appConfig = AppConfig.getInstance();
+        Log.e("uiadapter", "mScreenWidth: " + appConfig.getScreenWidth()
+                + " mScreenHeight: " + appConfig.getScreenHeight());
         Log.e("uiadapter", "width: " + width + " height: " + height);
 
-        float targetDensity = AppConfig.getInstance().getScreenWidth() * 1.0f / width;
-        Log.e("uiadapter", "targetDensity: " + targetDensity);
-        DisplayInfo displayInitInfo = AppConfig.getInstance().getInitDisplayInfo();
+        float targetDensity = appConfig.getScreenWidth() * 1.0f / width;
+//        Log.e("uiadapter", "targetDensity: " + targetDensity);
+        DisplayInfo displayInitInfo = appConfig.getInitDisplayInfo();
 
         float scale = displayInitInfo.getDensity() * 1.0f / displayInitInfo.getScaledDensity();
-        Log.e("uiadapter", "scale: " + scale);
+//        Log.e("uiadapter", "scale: " + scale);
         float targetScaledDensity = targetDensity * scale;
-        Log.e("uiadapter", "targetScaledDensity: " + targetScaledDensity);
+//        Log.e("uiadapter", "targetScaledDensity: " + targetScaledDensity);
         int targetDensityDpi = (int) (targetDensity * 160);
-        Log.e("uiadapter", "targetDensityDpi: " + targetDensityDpi);
+//        Log.e("uiadapter", "targetDensityDpi: " + targetDensityDpi);
 
         float targetXdpi = targetDensity;
-        Log.e("uiadapter", "targetXdpi: " + targetXdpi);
-        float targetYdpi = AppConfig.getInstance().getScreenHeight() * 1.0f / height;
+//        Log.e("uiadapter", "targetXdpi: " + targetXdpi);
+        float targetYdpi = appConfig.getScreenHeight() * 1.0f / height;
 
         displayInfo.setDensity(targetDensity);
         displayInfo.setScaledDensity(targetScaledDensity);
@@ -83,10 +89,14 @@ public class DefaultStrategy implements AutoStrategy {
     private void setDensity(Activity curAty, DisplayInfo displayInfo) {
         DisplayMetrics activityDisplayMetrics = curAty.getResources().getDisplayMetrics();
         setDensity(activityDisplayMetrics, displayInfo);
+        printfDensity("activity", activityDisplayMetrics);
 
-
+        Log.e("uiadapter", "---------------------------");
         DisplayMetrics appDisplayMetrics = curAty.getApplication().getResources().getDisplayMetrics();
+        printfDensity("app", appDisplayMetrics);
+        Log.e("uiadapter", "---------------------------");
         setDensity(appDisplayMetrics, displayInfo);
+        printfDensity("app after", appDisplayMetrics);
     }
 
     private void setDensity(DisplayMetrics displayMetrics, DisplayInfo displayInfo) {
@@ -95,6 +105,15 @@ public class DefaultStrategy implements AutoStrategy {
         displayMetrics.scaledDensity = displayInfo.getScaledDensity();
         displayMetrics.xdpi = displayInfo.getXdpi();
         displayMetrics.ydpi = displayInfo.getYdpi();
+    }
+
+    private void printfDensity(String tag, DisplayMetrics displayMetrics) {
+        tag = "uiadapter " + tag;
+        Log.e(tag, "density: " + displayMetrics.density);
+        Log.e(tag, "densityDpi: " + displayMetrics.densityDpi);
+        Log.e(tag, "scaledDensity: " + displayMetrics.scaledDensity);
+        Log.e(tag, "xdpi: " + displayMetrics.xdpi);
+        Log.e(tag, "ydpi: " + displayMetrics.ydpi);
     }
 
 }

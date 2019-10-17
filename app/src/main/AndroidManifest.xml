@@ -21,7 +21,9 @@
             </intent-filter>
         </activity>
 
-<!--        android:configChanges="screenSize|orientation|keyboard"-->
+
+<!--        android:configChanges="screenSize"-->
+<!--           android:screenOrientation="sensorLandscape"-->
         <activity android:name="com.jogern.juiadapter.ui.MainActivity"
             />
     </application>

@@ -56,6 +56,12 @@ public class AppConfig {
                   @Override
                   public void onConfigurationChanged(Configuration newConfig) {
                       initScreenSize(application);
+                        //说明字体大小改变了
+                        if (newConfig != null && newConfig.fontScale > 0) {
+                              //重新赋值appScaledDensity
+                           float  appScaledDensity = application.getResources().getDisplayMetrics().scaledDensity;
+                           mInitDisplayInfo.setScaledDensity(appScaledDensity);
+                        }
                   }
 
                   @Override
@@ -68,7 +74,6 @@ public class AppConfig {
             int[] screenSize = CommonUtil.getScreenSize(application);
             mScreenWidth = screenSize[0];
             mScreenHeight = screenSize[1];// - getNavigationBarHeight(application);
-            Log.e("uiadapter","mScreenWidth: " + mScreenWidth + " mScreenHeight: " + mScreenHeight);
       }
 
       public DisplayInfo getInitDisplayInfo() {
